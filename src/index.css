@@ -154,8 +154,12 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .credit-controls button { min-height: 44px; padding: 0 11px; border: 1px solid #353535; background: rgba(5, 5, 5, .86); color: #ddd; cursor: pointer; font: 9px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: .06em; }
 .credit-controls button span { margin-left: 5px; color: #b8ff3d; font-size: 1rem; }
 .credit-controls button:disabled { color: #777; cursor: not-allowed; }
+.credit-controls .credit-start { border-color: #b8ff3d; color: #050505; background: #b8ff3d; }
+.credit-controls .credit-start span { color: #050505; }
+.credit-controls .credit-start:disabled { border-color: #353535; background: #171717; color: #777; }
+.credit-controls .credit-start:disabled span { color: #777; }
 .credits-track { display: flex; flex-direction: column; width: 100%; will-change: transform; }
-.credits-track.is-visible { animation: credits-scroll 108s linear infinite; }
+.credits-track.is-playing { animation: credits-scroll 108s linear infinite; }
 .credits-roll { flex: 0 0 auto; width: 100%; max-width: 500px; margin: 0 auto; padding: 82px 24px 0; text-align: center; }
 .credits-roll > .eyebrow { color: #b8ff3d; }
 .credit-block { margin: 66px 0; }
@@ -235,7 +239,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .site-footer { padding-inline: 8vw; }
 }
 @media (hover: hover) and (pointer: fine) { .media-frame:hover img { transform: scale(1.02); } .menu-overlay nav a:hover { color: #b8ff3d; } .text-link:not(:disabled):hover span { transform: translateX(4px); } }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } .reveal { opacity: 1; transform: none; } .credits-track.is-visible { animation: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } .reveal { opacity: 1; transform: none; } .credits-track.is-playing { animation: none; } }
 
 
 

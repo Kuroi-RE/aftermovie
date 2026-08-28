@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { credits, site } from '../data/content'
 import { useInView } from '../hooks/useInView'
-import { useCreditMusic } from '../hooks/useCreditMusic'
 
 function CreditContent({ hidden = false }) {
   return (
@@ -35,9 +34,11 @@ function CreditContent({ hidden = false }) {
 export function PostCredits() {
   const [stageRef, visible] = useInView()
   const sectionRef = useRef(null)
+  const videoRef = useRef(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [isFullscreenSupported, setIsFullscreenSupported] = useState(true)
-  const { isPlaying, isSupported, toggleMusic } = useCreditMusic(site.creditAudioUrl)
+  const [hasStarted, setHasStarted] = useState(false)
+  const [hasVideoError, setHasVideoError] = useState(false)
 
   useEffect(() => {
     setIsFullscreenSupported(Boolean(sectionRef.current?.requestFullscreen && document.exitFullscreen))
@@ -56,31 +57,36 @@ export function PostCredits() {
     }
   }
 
-  const seekRandomMoment = (video) => {
-    const availableDuration = Math.max(0, video.duration - 1)
-    video.currentTime = Math.random() * availableDuration
+  const startCredit = async () => {
+    const video = videoRef.current
+    if (!video) return
+
+    try {
+      video.currentTime = 0
+      await video.play()
+      setHasStarted(true)
+    } catch {
+      setHasVideoError(true)
+    }
   }
 
-  const playRandomMoment = (event) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const video = event.currentTarget
-    seekRandomMoment(video)
-    video.play().catch(() => {})
+  const finishCredit = () => {
+    setHasStarted(false)
   }
 
   return (
     <section ref={sectionRef} className="post-credits" aria-labelledby="credits-title">
       <div className="credit-controls" aria-label="Kontrol post-credit">
         <button type="button" onClick={toggleFullscreen} aria-pressed={isFullscreen} disabled={!isFullscreenSupported}>{isFullscreenSupported ? (isFullscreen ? 'KELUAR LAYAR PENUH' : 'LAYAR PENUH') : 'LAYAR PENUH TIDAK DIDUKUNG'} <span aria-hidden="true">⛶</span></button>
-        <button type="button" onClick={toggleMusic} aria-pressed={isPlaying} disabled={!isSupported}>{isSupported ? (isPlaying ? 'HENTIKAN MUSIK' : 'NYALAKAN MUSIK') : 'MUSIK TIDAK DIDUKUNG'} <span aria-hidden="true">{isPlaying ? 'Ⅱ' : '♪'}</span></button>
+        <button className="credit-start" type="button" onClick={startCredit} aria-pressed={hasStarted} disabled={hasStarted || hasVideoError}>{hasVideoError ? 'VIDEO TIDAK TERSEDIA' : hasStarted ? 'CREDIT BERJALAN' : 'MULAI CREDIT'} <span aria-hidden="true">{hasStarted ? 'Ⅱ' : '▶'}</span></button>
       </div>
       <div className="credit-layout">
         <figure className="credit-film">
-          {visible && <video src={site.creditVideoUrl} muted playsInline preload="metadata" onLoadedMetadata={playRandomMoment} onEnded={playRandomMoment} aria-describedby="credit-film-caption" />}
+          {visible && <video ref={videoRef} src={site.creditVideoUrl} playsInline preload="metadata" onEnded={finishCredit} onError={() => setHasVideoError(true)} aria-describedby="credit-film-caption" />}
           <figcaption id="credit-film-caption"><span>SEMANGAT PANITIA</span><p>Terima kasih untuk setiap peran yang telah dilakukan.</p></figcaption>
         </figure>
         <div ref={stageRef} className="credit-stage">
-          <div className={`credits-track ${visible ? 'is-visible' : ''}`}>
+          <div className={`credits-track ${hasStarted ? 'is-playing' : ''}`}>
             <CreditContent />
             <CreditContent hidden />
           </div>

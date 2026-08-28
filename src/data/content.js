@@ -5,9 +5,8 @@ export const site = {
   district: 'KERJO',
   regency: 'KARANGANYAR',
   year: '2026',
-  openingVideoUrl: 'https://cdn.sharam.id/17agustus2026/0828.mp4',
-  creditVideoUrl: 'https://cdn.sharam.id/17agustus2026/0828.mp4',
-  creditAudioUrl: '/audio/credit.mp3',
+  openingVideoUrl: 'https://cdn.sharam.id/17agustus2026/welcome.mp4',
+  creditVideoUrl: 'https://cdn.sharam.id/17agustus2026/credits480.mp4',
 }
 
 /**
@@ -207,17 +206,32 @@ export const finalmoment = {
 export const outtakes = [
   {
     id: 1,
-    image: null,
+    image: {
+      src: `${CDN}/kartar.webp`,
+      alt: 'Warga mempersiapkan perlengkapan sebelum acara dimulai',
+      width: 1600,
+      height: 1067,
+    },
     label: 'Momen spontan warga di sela persiapan acara',
   },
   {
     id: 2,
-    image: null,
+    image: {
+      src: `${CDN}/kartar.webp`,
+      alt: 'Warga mempersiapkan perlengkapan sebelum acara dimulai',
+      width: 1600,
+      height: 1067,
+    },
     label: 'Tawa dan kebersamaan warga saat perlombaan berlangsung',
   },
   {
     id: 3,
-    image: null,
+    image: {
+      src: `${CDN}/kartar.webp`,
+      alt: 'Warga mempersiapkan perlengkapan sebelum acara dimulai',
+      width: 1600,
+      height: 1067,
+    },
     label: 'Detail perlengkapan yang digunakan dalam rangkaian lomba',
   },
 ]
@@ -228,6 +242,14 @@ export const credits = [
   {
     label: 'Created by',
     value: 'shaa.dev',
+  },
+  {
+    label: 'Perayaan',
+    value: 'HUT RI Ke-81',
+  },
+  {
+    label: 'Karang Taruna',
+    value: 'Mekarjadi',
   },
   {
     label: 'Dipersembahkan untuk',
