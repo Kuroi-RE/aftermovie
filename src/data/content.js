@@ -5,7 +5,7 @@ export const site = {
   district: 'KERJO',
   regency: 'KARANGANYAR',
   year: '2026',
-  openingVideoUrl: 'https://cdn.sharam.id/17agustus2026/welcome.mp4',
+  openingVideoUrl: 'https://cdn.sharam.id/17agustus2026/welcome480.mp4',
   creditVideoUrl: 'https://cdn.sharam.id/17agustus2026/credits480.mp4',
 }
 
