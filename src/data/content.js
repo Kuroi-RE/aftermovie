@@ -296,7 +296,7 @@ export const credits = [
   {
     label: 'Hubungan Masyarakat (Humas)',
     value:
-      'Fajar    RT01    Rido\n' +
+      'Fajar & Rido (RT 01)\n' +
       'Alip & Bintang (RT 02)\n' +
       'Dika & Riko (RT 03)\n' +
       'Disti & Nita (RT 04)\n',

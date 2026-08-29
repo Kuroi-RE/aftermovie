@@ -6,7 +6,7 @@ function CreditContent({ hidden = false }) {
   return (
     <div className="credits-roll" aria-hidden={hidden || undefined}>
       {!hidden && <h2 id="credits-title" className="sr-only">Post credit</h2>}
-      <p className="eyebrow">POST CREDIT</p>
+      <p className="eyebrow">The End.</p>
       {credits.map((credit) => {
         const rows = credit.value.split('\n').filter(Boolean)
         const isMemberGrid = rows.some((row) => row.includes('|'))
