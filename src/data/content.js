@@ -254,17 +254,13 @@ export const credits = [
   {
     label: 'Dipersembahkan untuk',
     value:
-      'Warga Dusun Domas.\n' +
-      'Panitia.\n' +
-      'yang membantu.\n' +
+      'Warga Dusun Domas,\n' +
+      'panitia,\n' +
+      'yang membantu,\n' +
       'dan yang merayakan bersama.',
   },
   {
-    label: 'Cerita & Konsep',
-    value: 'Shaa',
-  },
-  {
-    label: 'Desain & Website',
+    label: 'Konsep Desain & Website',
     value: 'Shaa',
   },
   {
@@ -300,7 +296,7 @@ export const credits = [
   {
     label: 'Hubungan Masyarakat (Humas)',
     value:
-      'Fajar & Rido (RT 01)\n' +
+      'Fajar    RT01    Rido\n' +
       'Alip & Bintang (RT 02)\n' +
       'Dika & Riko (RT 03)\n' +
       'Disti & Nita (RT 04)\n',
