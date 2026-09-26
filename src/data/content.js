@@ -7,7 +7,22 @@ export const site = {
   year: '2026',
   openingVideoUrl: 'https://cdn.sharam.id/17agustus2026/welcome.mp4',
   creditVideoUrl: 'https://cdn.sharam.id/17agustus2026/credits480.mp4',
+  // fragments/1 dipilih karena berkasnya paling ringan (~2,3 MB; fragments/3 ~8 MB).
+  heroImage: {
+    src: `${CDN}/fragments/1.webp`,
+    alt: 'Suasana sore warga Dusun Domas saat rangkaian kegiatan berlangsung',
+    width: 1600,
+    height: 1067,
+  },
 }
+
+// Angka dari versi sebelumnya. Pastikan sesuai data panitia sebelum dipublikasikan.
+export const stats = [
+  { value: '800+', label: 'Warga Domas' },
+  { value: '12', label: 'Kegiatan' },
+  { value: '1000+', label: 'Momen terdokumentasi' },
+  { value: '∞', label: 'Kenangan tersimpan' },
+]
 
 /**
  * Potongan dokumentasi suasana HUT RI ke-81

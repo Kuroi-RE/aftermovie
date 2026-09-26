@@ -1,8 +1,18 @@
 import { useInView } from '../hooks/useInView'
+import { ChapterMark, RevealLines } from './Motion'
 
 export function FinalChapter() {
   const [ref, visible] = useInView()
   return (
-    <section className="section final-chapter" aria-labelledby="chapter-title"><div ref={ref} className={`final-chapter-copy reveal ${visible ? 'is-visible' : ''}`}><p className="eyebrow">09 / BAB TERAKHIR</p><h2 id="chapter-title">DAN KEMUDIAN,<br /><span>SEMUA SELESAI.</span></h2><div className="closing-lines"><p>Lampu mulai dipadamkan.</p><p>Kursi mulai dikembalikan.</p><p>Orang-orang mulai pulang.</p></div><h3>Tapi ceritanya tidak benar-benar selesai.</h3></div></section>
+    <section className="section final-chapter" aria-labelledby="chapter-title">
+      <div ref={ref} className={`final-chapter-copy ${visible ? 'is-visible' : ''}`}>
+        <ChapterMark number={9} label="Bab terakhir" />
+        <h2 id="chapter-title" className="display"><RevealLines lines={['Dan kemudian,', <em key="s">semua selesai.</em>]} step={200} /></h2>
+        <div className="closing-lines">
+          <RevealLines lines={['Lampu mulai dipadamkan.', 'Kursi mulai dikembalikan.', 'Orang-orang mulai pulang.']} base={700} step={450} />
+        </div>
+        <p className="final-chapter-turn"><RevealLines lines={['Tapi ceritanya tidak', 'benar-benar selesai.']} base={2200} step={180} /></p>
+      </div>
+    </section>
   )
 }

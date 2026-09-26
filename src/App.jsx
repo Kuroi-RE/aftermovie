@@ -21,14 +21,16 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [isOpeningComplete, setIsOpeningComplete] = useState(false)
   const closeMenu = () => setMenuOpen(false)
+  const toggleMenu = useCallback(() => setMenuOpen((open) => !open), [])
   const completeOpening = useCallback(() => setIsOpeningComplete(true), [])
 
   return (
     <>
-      <div className="app-shell" aria-hidden={!isOpeningComplete}>
-        <Header village={site.village} menuOpen={menuOpen} onMenuToggle={() => setMenuOpen((open) => !open)} onNavigate={closeMenu} />
+      <div className="app-shell" aria-hidden={!isOpeningComplete} inert={!isOpeningComplete}>
+        <a className="skip-link" href="#cerita">Lewati ke cerita</a>
+        <Header village={site.village} year={site.year} menuOpen={menuOpen} onMenuToggle={toggleMenu} onNavigate={closeMenu} />
         <main>
-          <Hero />
+          <Hero ready={isOpeningComplete} />
           <Intro />
           <Place />
           <Numbers />
@@ -44,7 +46,8 @@ export default function App() {
         </main>
         <Footer />
       </div>
-      {!isOpeningComplete && <Opening src={site.openingVideoUrl} onComplete={completeOpening} />}
+      <div className="film-grain" aria-hidden="true" />
+      {!isOpeningComplete && <Opening src={site.openingVideoUrl} village={site.village} year={site.year} onComplete={completeOpening} />}
     </>
   )
 }

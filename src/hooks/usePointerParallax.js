@@ -1,26 +1,24 @@
 import { useEffect, useRef } from 'react'
 
 // Parallax hanya aktif pada pointer presisi agar scrolling mobile tetap ringan.
-export function usePointerParallax() {
+export function usePointerParallax(strength = 18) {
   const ref = useRef(null)
 
   useEffect(() => {
     const element = ref.current
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)')
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const target = element?.closest('section') ?? element
 
     if (!element || !canHover.matches || reduceMotion.matches) return undefined
 
     let frameId
-    let bounds
     let x = 0
     let y = 0
 
     const render = () => {
-      element.style.setProperty('--parallax-grid-x', `${(x * -22).toFixed(2)}px`)
-      element.style.setProperty('--parallax-grid-y', `${(y * -22).toFixed(2)}px`)
-      element.style.setProperty('--parallax-copy-x', `${(x * 9).toFixed(2)}px`)
-      element.style.setProperty('--parallax-copy-y', `${(y * 9).toFixed(2)}px`)
+      element.style.setProperty('--px', `${(x * -strength).toFixed(2)}px`)
+      element.style.setProperty('--py', `${(y * -strength).toFixed(2)}px`)
       frameId = undefined
     }
 
@@ -28,12 +26,8 @@ export function usePointerParallax() {
       if (!frameId) frameId = window.requestAnimationFrame(render)
     }
 
-    const updateBounds = () => {
-      bounds = element.getBoundingClientRect()
-    }
-
     const handleMove = (event) => {
-      if (!bounds) updateBounds()
+      const bounds = target.getBoundingClientRect()
       x = (event.clientX - bounds.left) / bounds.width - 0.5
       y = (event.clientY - bounds.top) / bounds.height - 0.5
       requestRender()
@@ -45,17 +39,15 @@ export function usePointerParallax() {
       requestRender()
     }
 
-    element.addEventListener('pointerenter', updateBounds, { passive: true })
-    element.addEventListener('pointermove', handleMove, { passive: true })
-    element.addEventListener('pointerleave', reset, { passive: true })
+    target.addEventListener('pointermove', handleMove, { passive: true })
+    target.addEventListener('pointerleave', reset, { passive: true })
 
     return () => {
       if (frameId) window.cancelAnimationFrame(frameId)
-      element.removeEventListener('pointerenter', updateBounds)
-      element.removeEventListener('pointermove', handleMove)
-      element.removeEventListener('pointerleave', reset)
+      target.removeEventListener('pointermove', handleMove)
+      target.removeEventListener('pointerleave', reset)
     }
-  }, [])
+  }, [strength])
 
   return ref
 }

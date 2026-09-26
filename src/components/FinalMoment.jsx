@@ -1,11 +1,21 @@
-import { site } from '../data/content'
+import { finalmoment, site } from '../data/content'
+import { progress } from '../lib/scroll'
 import { MediaFrame } from './MediaFrame'
-import {finalmoment} from '../data/content'
-import { useInView } from '../hooks/useInView'
+import { useScrollProgress } from '../hooks/useScrollProgress'
 
+// Foto dibuka dari bingkai kecil menjadi layar penuh saat digulir,
+// seperti layar bioskop yang melebar sebelum kalimat penutup muncul.
 export function FinalMoment() {
-  const [ref, visible] = useInView()
+  const ref = useScrollProgress(progress.pinned)
   return (
-    <section className="final-moment" id="arsip" aria-labelledby="moment-title"><MediaFrame image={finalmoment.image} label={finalmoment.label} className="final-image" priority /><div ref={ref} className={`final-moment-content reveal ${visible ? 'is-visible' : ''}`}><h2 id="moment-title">KITA PERNAH<br />DI SINI.</h2><p>{site.village}<br />{site.year}</p></div></section>
+    <section ref={ref} className="final-moment" id="arsip" aria-labelledby="moment-title">
+      <div className="final-moment-sticky">
+        <MediaFrame image={finalmoment.image} label={finalmoment.label} className="final-image" />
+        <div className="final-moment-content">
+          <h2 id="moment-title">Kita pernah<br /><em>di sini.</em></h2>
+          <p>Dusun {site.village.toLowerCase()}, {site.year}</p>
+        </div>
+      </div>
+    </section>
   )
 }
